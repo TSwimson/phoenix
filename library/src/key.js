@@ -11,9 +11,10 @@
     if (!keyHandler) {
       return undefined;
     }
+
     keys[keyHandler.hash()] = keyHandler;
     return keyHandler.hash();
-  }
+  };
 
   scope.off = function (identifier) {
     var key = keys[identifier];
@@ -21,5 +22,5 @@
       key.disable();
       delete keys[identifier];
     }
-  }
+  };
 })(Key);

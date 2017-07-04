@@ -7,13 +7,14 @@
   var events = {};
 
   scope.on = function (event, callback) {
-    var eventHandler = new Event(event, callback);
-    if (!eventHandler) {
-      return undefined;
-    }
-    events[eventHandler.hash()] = eventHandler;
-    return eventHandler.hash();
-  }
+      var eventHandler = new Event(event, callback);
+      if (!eventHandler) {
+        return undefined;
+      }
+
+      events[eventHandler.hash()] = eventHandler;
+      return eventHandler.hash();
+    };
 
   scope.off = function (identifier) {
     var event = events[identifier];
@@ -21,5 +22,5 @@
       event.disable();
       delete events[identifier];
     }
-  }
+  };
 })(Event);

@@ -26,6 +26,7 @@
 - (NSString *) bundleIdentifier;
 - (NSString *) name;
 - (NSImage *) icon;
+- (NSString *) iconPath;
 - (BOOL) isActive;
 - (BOOL) isHidden;
 - (BOOL) isTerminated;

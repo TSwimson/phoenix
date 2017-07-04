@@ -26,7 +26,7 @@
 - (instancetype) init;
 
 #pragma mark - Displaying
-
+- (void) setIconPath:(NSString*)point;
 - (NSRect) frame;
 - (void) show;
 - (void) close;

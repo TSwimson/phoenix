@@ -98,8 +98,11 @@ static NSString * const PHAppForceOptionKey = @"force";
 }
 
 - (NSImage *) icon {
-
     return self.app.icon;
+}
+
+- (NSString *) iconPath {
+    return [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier: self.app.bundleIdentifier];
 }
 
 - (BOOL) isActive {
@@ -120,7 +123,6 @@ static NSString * const PHAppForceOptionKey = @"force";
 #pragma mark - Windows
 
 - (PHWindow *) mainWindow {
-
     return [[PHWindow alloc] initWithElement:[self valueForAttribute:NSAccessibilityMainWindowAttribute]];
 }
 
@@ -151,12 +153,11 @@ static NSString * const PHAppForceOptionKey = @"force";
 #pragma mark - Actions
 
 - (BOOL) activate {
-
+    
     return [self.app activateWithOptions:NSApplicationActivateAllWindows];
 }
 
 - (BOOL) focus {
-
     return [self.app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
 }
 

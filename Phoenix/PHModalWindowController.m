@@ -224,6 +224,10 @@ static NSString * const PHModalWindowControllerTextKeyPath = @"text";
     return self.icon || [self hasText];
 }
 
+- (void) setIconPath:(NSString*)path {
+    self.icon = [[NSWorkspace sharedWorkspace] iconForFile:path];
+}
+
 - (void) layout {
 
     self.iconViewZeroWidthConstraint.priority = !self.icon ? 999 : NSLayoutPriorityDefaultLow;

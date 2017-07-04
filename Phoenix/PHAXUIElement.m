@@ -21,7 +21,9 @@
         self.element = element;
         AXUIElementSetMessagingTimeout((__bridge AXUIElementRef) self.element, 0.5);
     }
-
+    if (self.element == NULL) {
+        NSLog(@"null element");
+    }
     return self;
 }
 
@@ -66,7 +68,7 @@
 #pragma mark - Element Accessors
 
 - (pid_t) processIdentifier {
-
+    
     pid_t processIdentifier;
     AXError error = AXUIElementGetPid((__bridge AXUIElementRef) self.element, &processIdentifier);
 

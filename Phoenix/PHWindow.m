@@ -206,6 +206,7 @@ AXError _AXUIElementGetWindow(AXUIElementRef element, CGWindowID *identifier);
 - (BOOL) isNormal {
 
     return [[self subrole] isEqualToString:NSAccessibilityStandardWindowSubrole];
+    // || [[self subrole] isEqualToString:NSAccessibilityDialogSubrole];
 }
 
 - (BOOL) isFullScreen {
@@ -418,12 +419,12 @@ AXError _AXUIElementGetWindow(AXUIElementRef element, CGWindowID *identifier);
 #pragma mark - Focusing
 
 - (BOOL) focus {
-
     // Set this window as the main window
     if (![self setAttribute:NSAccessibilityMainAttribute withValue:@YES]) {
+        NSLog(@"couldnt set main attribute");
         return NO;
     }
-
+    
     // Focus window’s app
     return [self.app focus];
 }
