@@ -18,6 +18,8 @@
 
 @interface PHContext : NSObject <PHContextDelegate>
 
+@property (readonly) NSString *primaryConfigurationPath;
+
 #pragma mark - Initialising
 
 + (instancetype) new NS_UNAVAILABLE;

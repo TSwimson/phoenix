@@ -48,6 +48,22 @@
     return [[self alloc] initWithElement:element];
 }
 
++ (instancetype) elementAtPosition:(CGPoint)position {
+
+    PHAXUIElement *systemWideElement = [self systemWideElement];
+
+    AXUIElementRef element = NULL;
+    AXError error = AXUIElementCopyElementAtPosition((__bridge AXUIElementRef) systemWideElement.element,
+                                                     position.x,
+                                                     position.y,
+                                                     &element);
+    if (error != kAXErrorSuccess) {
+        NSLog(@"Error: Could not get accessibility element at position %@. (%d)", NSStringFromPoint(position), error);
+    }
+
+    return [[self alloc] initWithElement:CFBridgingRelease(element)];
+}
+
 #pragma mark - Identifying
 
 - (NSUInteger) hash {
@@ -120,6 +136,19 @@
 
     if (error != kAXErrorSuccess) {
         NSLog(@"Error: Could not set accessibility attribute “%@” with value “%@” for element %@. (%d)", attribute, value, self.element, error);
+    }
+
+    return error == kAXErrorSuccess;
+}
+
+#pragma mark - Actions
+
+- (BOOL) performAction:(NSString *)action {
+
+    AXError error = AXUIElementPerformAction((__bridge AXUIElementRef) self.element, (__bridge CFStringRef) action);
+
+    if (error != kAXErrorSuccess) {
+        NSLog(@"Error: Could not perform action “%@” for element %@. (%d)", action, self.element, error);
     }
 
     return error == kAXErrorSuccess;

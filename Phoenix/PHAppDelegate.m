@@ -44,16 +44,13 @@
 
     [PHUniversalAccessHelper askPermissionIfNeeded];
 
-    self.context = [PHContext context];
-    [self.context load];
-
-    [self toggleStatusItem:![[PHPreferences sharedPreferences] isDaemon]];
-
     // Observe changes in preferences
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferencesDidChange:)
                                                  name:PHPreferencesDidChangeNotification
                                                object:nil];
+    self.context = [PHContext context];
+    [self.context load];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:PHEventDidLaunchNotification object:nil];
 }
@@ -67,7 +64,7 @@
         [application replyToApplicationShouldTerminate:YES];
     }];
 
-    return NSTerminateLater;
+    return self.context ? NSTerminateLater : NSTerminateNow;
 }
 
 #pragma mark - NSMenuDelegate
@@ -90,6 +87,11 @@
 - (IBAction) reloadContext:(id)__unused sender {
 
     [self.context load];
+}
+
+- (IBAction) editConfiguration:(id)__unused sender {
+
+    [[NSWorkspace sharedWorkspace] openFile:self.context.primaryConfigurationPath];
 }
 
 - (IBAction) showAboutPanel:(id)sender {

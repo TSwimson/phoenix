@@ -1,10 +1,73 @@
 Changelog
 =========
 
-2.3.1 (master)
+2.5.1 (master)
 --------------
 
 Release: dd.mm.yyyy
+
+2.5
+---
+
+Release: 22.1.2017
+
+### New
+
+- If you did not already know, macOS Sierra (10.12) has full support for the ECMAScript 6 standard and you can now use it with Phoenix! [Read](http://es6-features.org) a quick overview of the new features added to the language.
+- Add support for getting the topmost window at a specified point ([#149](https://github.com/kasper/phoenix/issues/149)).
+- Add “Edit configuration” status menu item ([#156](https://github.com/kasper/phoenix/pull/156)).
+- Add support for mouse drag events ([#159](https://github.com/kasper/phoenix/issues/159)).
+
+### Changes
+
+- Lodash is upgraded to 4.17.4 (from 4.17.3).
+
+### API
+
+#### Events
+
+- New: Event `mouseDidLeftDrag` is triggered when the mouse did left drag ([#159](https://github.com/kasper/phoenix/issues/159)).
+- New: Event `mouseDidRightDrag` is triggered when the mouse did right drag ([#159](https://github.com/kasper/phoenix/issues/159)).
+
+#### Window
+
+- New: Function `at(Point point)` returns the topmost window at the specified point, can be `undefined` if no window is present at the given position ([#149](https://github.com/kasper/phoenix/issues/149)).
+
+2.4
+---
+
+Release: 26.12.2016
+
+### Changes
+
+- Breaking: Underscore.js is replaced with [Lodash](https://lodash.com) (4.17.3) ([#89](https://github.com/kasper/phoenix/issues/89)).
+- Xcode 8 is now required for building.
+
+### Bug Fixes
+
+- Fix an issue that caused inconsistencies with screens and spaces when “Displays have separate Spaces” option was disabled in macOS ([#130](https://github.com/kasper/phoenix/issues/130)).
+- Fix an issue that prevented Phoenix from terminating after accessibility prompt ([#132](https://github.com/kasper/phoenix/issues/132)).
+- Fix an issue that prevented preferences to be observed on launch ([#133](https://github.com/kasper/phoenix/issues/133)).
+- Fix an issue that prevented task callbacks from performing actions on the main thread ([#137](https://github.com/kasper/phoenix/issues/137)).
+
+### API
+
+#### Phoenix
+
+- Change: Function `log(...)` now supports multiple arguments ([#157](https://github.com/kasper/phoenix/issues/157)).
+
+#### Task
+
+- Change: Function `run(String path, Array arguments, Function callback)` can now be called without a callback ([#135](https://github.com/kasper/phoenix/issues/135)).
+
+#### Space
+
+- New: Function `screens()` returns all screens to which the space belongs to ([#130](https://github.com/kasper/phoenix/issues/130)).
+- Deprecation: Function `screen()` is deprecated and will be removed in later versions, use `screens()` instead ([#130](https://github.com/kasper/phoenix/issues/130)).
+
+#### Window
+
+- New: Function `raise()` raises the window so it will be beneath the focused window, returns `true` if successful ([#151](https://github.com/kasper/phoenix/issues/151)).
 
 2.3
 ---

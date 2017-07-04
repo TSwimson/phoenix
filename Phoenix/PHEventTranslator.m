@@ -18,7 +18,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 
-        NSNotificationCenter *workspaceNotificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+        NSNotificationCenter *workspaceNotificationCenter = [NSWorkspace sharedWorkspace].notificationCenter;
 
         notificationToNotificationCenter = @{ /* Space Notifications */
 
@@ -68,6 +68,8 @@
                                  @"mouseDidMove": PHMouseDidMoveNotification,
                                  @"mouseDidLeftClick": PHMouseDidLeftClickNotification,
                                  @"mouseDidRightClick": PHMouseDidRightClickNotification,
+                                 @"mouseDidLeftDrag": PHMouseDidLeftDragNotification,
+                                 @"mouseDidRightDrag": PHMouseDidRightDragNotification,
 
                                  /* App Notifications */
 

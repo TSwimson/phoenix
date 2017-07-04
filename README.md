@@ -7,7 +7,7 @@ Phoenix
 
 A lightweight macOS window and app manager scriptable with JavaScript. You can also easily use languages which compile to JavaScript such as CoffeeScript. Phoenix aims for efficiency and a very small footprint. If you like the idea of scripting your own window or app management toolkit with JavaScript, Phoenix is probably going to give you the things you want. With Phoenix you can bind keyboard shortcuts and system events, and use these to interact with macOS.
 
-- Current version: 2.3 ([Changelog](CHANGELOG.md))
+- Current version: 2.5 ([Changelog](CHANGELOG.md))
 - Requires: macOS 10.10 or higher
 
 **Note:** the default `master`-branch will always be stable.
@@ -22,7 +22,7 @@ A lightweight macOS window and app manager scriptable with JavaScript. You can a
 
 ## Install
 
-- [**Download Phoenix**](https://github.com/kasper/phoenix/releases/download/2.3/phoenix-2.3.tar.gz)
+- [**Download Phoenix**](https://github.com/kasper/phoenix/releases/download/2.5/phoenix-2.5.tar.gz)
 - See previous [releases](https://github.com/kasper/phoenix/releases/)
 
 To install, extract the downloaded archive and just drag-and-drop Phoenix to your `Applications`-folder. When you run Phoenix for the first time, you will be asked to allow it to control your UI. macOS will ask you to open `Security & Privacy` in System Preferences. Once open, go to the `Accessibility`-section and click the checkbox next to Phoenix to enable control. An admin account is required to accomplish this.
@@ -41,10 +41,10 @@ Phoenix lives on your status bar (or as a background daemon) and can be scripted
 
 ![Screenshot of Phoenix](assets/screenshot.gif)
 
-See the [JavaScript API](API.md) to get started with your script. Your script should reside in `~/.phoenix.js` — the file will be created when you launch Phoenix for the first time. Alternatively — if you prefer — you may also have your script in `~/Library/Application Support/Phoenix/phoenix.js` or `~/.config/phoenix/phoenix.js`. For ideas, see what other people have built in their configurations in the [Wiki](https://github.com/kasper/phoenix/wiki/). Feel free to add your own configuration to the Wiki to show other people the nice things you can do. Previous configurations (<= 1.5) are not compatible with 2.0, see Changelog for what changes are needed.
+See the [JavaScript API](docs/API.md) to get started with your script. Your script should reside in `~/.phoenix.js` — the file will be created when you launch Phoenix for the first time. Alternatively — if you prefer — you may also have your script in `~/Library/Application Support/Phoenix/phoenix.js` or `~/.config/phoenix/phoenix.js`. For ideas, see what other people have built in their configurations in the [Wiki](https://github.com/kasper/phoenix/wiki/). Feel free to add your own configuration to the Wiki to show other people the nice things you can do. Previous configurations (<= 1.5) are not compatible with 2.0, see Changelog for what changes are needed.
 
-- [JavaScript API](API.md) (master)
-- [JavaScript API](https://github.com/kasper/phoenix/blob/2.3/API.md) (current)
+- [JavaScript API](docs/API.md) (master)
+- [JavaScript API](https://github.com/kasper/phoenix/blob/2.5/docs/API.md) (current)
 - [Examples](https://github.com/kasper/phoenix/wiki#examples)
 - [Changelog](CHANGELOG.md)
 
@@ -53,7 +53,7 @@ See the [JavaScript API](API.md) to get started with your script. Your script sh
 You will need some basic knowledge about installing the required languages and tools. If you need help, do not hesitate to ask! To get started, you will need:
 
 1. Git
-2. Xcode 7 or higher
+2. Xcode 8 or higher
 3. Xcode command line tools
 
 First clone the repository from a terminal:
@@ -75,7 +75,7 @@ Once complete, you will find a newly built Phoenix app in `build/Release/`. Afte
 
 Phoenix manages dependencies with [CocoaPods](https://cocoapods.org). Note that you do not need CocoaPods for basic development. However, if you want to install new pods or update existing ones, you will also need:
 
-4. [Ruby](https://www.ruby-lang.org) (2.3.1 or higher), it is recommended that you manage Ruby versions with for instance [rbenv](https://github.com/rbenv/rbenv/)
+4. [Ruby](https://www.ruby-lang.org) (2.4.0 or higher), it is recommended that you manage Ruby versions with for instance [rbenv](https://github.com/rbenv/rbenv/)
 5. [Bundler](http://bundler.io)
 6. CocoaPods
 
@@ -87,13 +87,13 @@ Install Bundler, if you do not already have it installed. To install CocoaPods a
 
 In addition to the Objective-C core, Phoenix also uses a JavaScript-based (5.1) library to implement additional features to the API. The minified library is included in the repository in `Phoenix/phoenix-min.js` so that everything works as is. However, if you want to develop features for this library, you will also need:
 
-7. [Node.js](https://nodejs.org) (6.3.1 or higher)
+7. [Node.js](https://nodejs.org) (7.4.0 or higher)
 8. [Grunt](http://gruntjs.com)
 
 Install Grunt’s command line interface globally, if you do not already have it installed. Then, install the development packages listed in `package.json`.
 
     npm install -g grunt-cli
-    npm install -d
+    npm install
 
 To build `phoenix-min.js` from the source, run the command `grunt` in the root directory. Grunt will then build the source from `library/src/` and install the new library to `Phoenix/phoenix-min.js`. For convenience, this is also handled automatically by Xcode when you build Phoenix.
 

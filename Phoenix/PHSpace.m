@@ -186,7 +186,11 @@ void CGSRemoveWindowsFromSpaces(CGSConnectionID connection, CFArrayRef windowIds
     return CGSSpaceGetType(CGSMainConnectionID(), self.identifier) == kCGSSpaceFullScreen;
 }
 
-- (NSScreen *) screen {
+- (NSArray<NSScreen *> *) screens {
+
+    if (![NSScreen screensHaveSeparateSpaces]) {
+        return [NSScreen screens];
+    }
 
     NSArray *displaySpacesInfo = CFBridgingRelease(CGSCopyManagedDisplaySpaces(CGSMainConnectionID()));
 
@@ -196,11 +200,11 @@ void CGSRemoveWindowsFromSpaces(CGSConnectionID connection, CFArrayRef windowIds
         NSArray<NSNumber *> *identifiers = [spacesInfo[CGSSpacesKey] valueForKey:CGSSpaceIDKey];
 
         if ([identifiers containsObject:@(self.identifier)]) {
-            return [NSScreen screenForIdentifier:screenIdentifier];
+            return @[ [NSScreen screenForIdentifier:screenIdentifier] ];
         }
     }
 
-    return nil;
+    return @[];
 }
 
 #pragma mark - Windows

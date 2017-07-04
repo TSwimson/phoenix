@@ -92,6 +92,17 @@ AXError _AXUIElementGetWindow(AXUIElementRef element, CGWindowID *identifier);
     return [[self alloc] initWithElement:focusedWindow];
 }
 
++ (instancetype) at:(CGPoint)point {
+
+    id window = [[self elementAtPosition:point] valueForAttribute:NSAccessibilityWindowAttribute];
+
+    if (!window) {
+        return nil;
+    }
+
+    return [[self alloc] initWithElement:window];
+}
+
 + (NSArray<PHWindow *> *) windows {
 
     NSMutableArray<PHWindow *> *windows = [NSMutableArray array];
@@ -417,6 +428,11 @@ AXError _AXUIElementGetWindow(AXUIElementRef element, CGWindowID *identifier);
 }
 
 #pragma mark - Focusing
+
+- (BOOL) raise {
+
+    return [self performAction:NSAccessibilityRaiseAction];
+}
 
 - (BOOL) focus {
     // Set this window as the main window

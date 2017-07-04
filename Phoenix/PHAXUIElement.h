@@ -16,6 +16,7 @@
 #pragma mark - System Accessors
 
 + (instancetype) elementForSystemAttribute:(NSString *)attribute;
++ (instancetype) elementAtPosition:(CGPoint)position;
 
 #pragma mark - Element Accessors
 
@@ -27,5 +28,9 @@
 #pragma mark - Setters
 
 - (BOOL) setAttribute:(NSString *)attribute withValue:(id)value;
+
+#pragma mark - Actions
+
+- (BOOL) performAction:(NSString *)action;
 
 @end

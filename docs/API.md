@@ -1,7 +1,7 @@
 JavaScript API
 ==============
 
-This documentation is an overview of the JavaScript API provided by Phoenix. Currently, the supported version of JavaScript is based on the ECMAScript 5.1 standard. Use this as a guide for writing your window management script. Your script should reside in `~/.phoenix.js`. Alternatively — if you prefer — you may also have your script in `~/Library/Application Support/Phoenix/phoenix.js` or `~/.config/phoenix/phoenix.js`. Phoenix includes [Underscore.js](http://underscorejs.org) (1.8.3) — you can use its features in your configuration. Underscore provides useful helpers for handling JavaScript functions and objects. You may also use JavaScript [preprocessing](#preprocessing) and languages such as CoffeeScript to write your Phoenix-configuration.
+This documentation is an overview of the JavaScript API provided by Phoenix. Currently, the supported version of JavaScript is based on the ECMAScript 6 standard. macOS versions prior to Sierra (10.12) support ECMAScript 5.1. Use this as a guide for writing your window management script. Your script should reside in `~/.phoenix.js`. Alternatively — if you prefer — you may also have your script in `~/Library/Application Support/Phoenix/phoenix.js` or `~/.config/phoenix/phoenix.js`. Phoenix includes [Lodash](https://lodash.com) (4.17.4) — you can use its features in your configuration. Lodash provides useful helpers for handling JavaScript functions and objects. You may also use JavaScript [preprocessing](#preprocessing) and languages such as CoffeeScript to write your Phoenix-configuration.
 
 ## General
 
@@ -105,7 +105,7 @@ Key.on 's', [ 'ctrl', 'shift' ], ->
   App.launch('Safari').focus()
 ```
 
-Or use [Babel](http://babeljs.io) to use ECMAScript 6 JavaScript:
+Or use [Babel](http://babeljs.io) to use ECMAScript 6 JavaScript in macOS versions prior to Sierra:
 
 ```javascript
 #!/usr/bin/env babel
@@ -158,6 +158,8 @@ All of the following mouse events receive the corresponding `Point`-object as th
 - `mouseDidMove` triggered when the mouse has moved
 - `mouseDidLeftClick` triggered when the mouse did left click
 - `mouseDidRightClick` triggered when the mouse did right click
+- `mouseDidLeftDrag` triggered when the mouse did left drag
+- `mouseDidRightDrag` triggered when the mouse did right drag
 
 ### App
 
@@ -214,7 +216,7 @@ class Phoenix
 
   static void reload()
   static void set(Map<String, AnyObject> preferences)
-  static void log(String message)
+  static void log(AnyObject... arguments)
   static void notify(String message)
 
 end
@@ -222,7 +224,7 @@ end
 
 - `reload()` manually reloads the context and any changes in the configuration files
 - `set(Map<String, AnyObject> preferences)` sets the preferences from the given key–value map, any previously set preferences with the same key will be overridden
-- `log(String message)` logs the message to the Console
+- `log(AnyObject... arguments)` logs the arguments to the Console
 - `notify(String message)` delivers the message to the Notification Center
 
 ## 6. Storage
@@ -506,7 +508,7 @@ class Space implements Identifiable, Iterable
 
   boolean isNormal()
   boolean isFullScreen()
-  Screen screen()
+  Array<Screen> screens()
   Array<Window> windows(Map<String, AnyObject> optionals)
   void addWindows(Array<Window> windows)
   void removeWindows(Array<Window> windows)
@@ -518,7 +520,7 @@ end
 - `all()` returns all spaces, the first space in this array corresponds to the primary space (macOS 10.11+, returns an empty list otherwise)
 - `isNormal()` returns `true` if the space is a normal space
 - `isFullScreen()` returns `true` if the space is a full screen space
-- `screen()` returns the screen to which the space belongs to
+- `screens()` returns all screens to which the space belongs to
 - `windows(Map<String, AnyObject> optionals)` returns all windows for the space if no optionals are given
 - `addWindows(Array<Window> windows)` adds the given windows to the space
 - `removeWindows(Array<Window> windows)` removes the given windows from the space
@@ -608,6 +610,7 @@ Use the `Window`-object to control windows. Every screen (i.e. display) combines
 class Window implements Identifiable
 
   static Window focused()
+  static Window at(Point point)
   static Array<Window> all(Map<String, AnyObject> optionals)
   static Array<Window> recent()
 
@@ -632,6 +635,7 @@ class Window implements Identifiable
   boolean minimise() // or minimize()
   boolean unminimise() // or unminimize()
   Array<Window> neighbours(String direction) // or neighbors(...)
+  boolean raise()
   boolean focus()
   boolean focusClosestNeighbour(String direction) // or focusClosestNeighbor(...)
 
@@ -639,6 +643,7 @@ end
 ```
 
 - `focused()` returns the focused window for the currently active app, can be `undefined` if no window is focused currently
+- `at(Point point)` returns the topmost window at the specified point, can be `undefined` if no window is present at the given position
 - `all(Map<String, AnyObject> optionals)` returns all windows in screens if no optionals are given
 - `recent()` returns all visible windows in the order as they appear on the screen (from front to back), essentially returning them in the most-recently-used order
 - `others(Map<String, AnyObject> optionals)` returns all other windows on all screens if no optionals are given
@@ -662,6 +667,7 @@ end
 - `minimise()` or `minimize()` minimises the window, returns `true` if successful
 - `unminimise()` or `unminimize()` unminimises the window, returns `true` if successful
 - `neighbours(String direction)` or `neighbors(...)` returns windows to the direction (`west|east|north|south`) of the window
+- `raise()` raises the window so it will be beneath the focused window, returns `true` if successful
 - `focus()` focuses the window, returns `true` if successful
 - `focusClosestNeighbour(String direction)` or `focusClosestNeighbor(...)` focuses the closest window to the direction (`west|east|north|south`) of the window, returns `true` if successful
 

@@ -216,8 +216,8 @@
     };
 
     [self setupAPI];
-    [self loadScript:[[NSBundle mainBundle] pathForResource:@"underscore-min" ofType:@"js"]];
-    [self loadScript:[[NSBundle mainBundle] pathForResource:@"phoenix-min" ofType:@"js"]];
+    [self loadScript:[[NSBundle mainBundle] pathForResource:@"lodash.min" ofType:@"js"]];
+    [self loadScript:[[NSBundle mainBundle] pathForResource:@"phoenix.min" ofType:@"js"]];
     [self loadScript:self.primaryConfigurationPath];
 }
 
